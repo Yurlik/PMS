@@ -35,12 +35,14 @@ class Db{
 		$stmt = self::$db->prepare($sql);	
 		if(!empty($params)){
 			foreach($params as $key => $val){
-				echo 'key: '.$key.' => val: '.$val;
-				self::$db->bindValue(':'.$key, $val);
+				//echo 'key: '.$key.' => val: '.$val;
+				$stmt->bindValue(':'.$key, $val);
 			}
 		}
 		$stmt->execute();
-		return $stmt;
+		
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		var_dump($result);
 	}
 	
 	

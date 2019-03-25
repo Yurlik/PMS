@@ -11,11 +11,18 @@ class ProductsController extends Controller{
 	
 	public function showAllAction(){
 		
+		
+		$params = [
+			
+			'id' => 1,
+			
+		];
+		
 		//$db = new Db;
 		$dbh = Db::GetInstance();
-		Db::qquery('SELECT * FROM products');
+		$result = Db::qquery('SELECT * FROM products WHERE id = :id', $params);
 		
-		
+		debug($result);
 		
 		//var_dump($res);
 		$vars = [];
