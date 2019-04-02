@@ -42,7 +42,7 @@ class Db{
 		$stmt->execute();
 		
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		var_dump($result);
+		return $result;
 	}
 	
 	

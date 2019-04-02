@@ -9,6 +9,7 @@ class Router{
 	protected $routes = [];
 	protected $params = [];
 	
+	protected $internalRoute = [];
 	
 	function __construct(){
 		$arr = require_once 'application/config/routes.php';
@@ -30,6 +31,16 @@ class Router{
 			if(preg_match($route, $url, $matches)){
 				//print_r($matches);
 				$this->params = $params;
+				//debug($this->params);
+				$uri = $this->getURI();
+				if(isset($this->params['id'])){
+					$this->internalRoute[] = preg_replace($route, $this->params['id'], $uri);
+				}
+				
+				
+				//$segments = explode('/', $this->internalRoute);
+				
+				//debug($internalRoute);
 				return true;
 			}
 		}
@@ -46,7 +57,8 @@ class Router{
 				//echo $action;
 				if(method_exists($path, $action)){
 					$controller = new $path($this->params);
-					$controller->$action();
+					$controller->$action($this->internalRoute);
+					//debug($this->params['id']);
 				}else{
 					View::errorCode(404);
 				}
@@ -60,6 +72,11 @@ class Router{
 		
 	}
 	
-	
+	private function getURI()
+	{
+		if (!empty($_SERVER['REQUEST_URI'])) {
+		return trim($_SERVER['REQUEST_URI'], '/');
+		}
+	}
 	
 }

@@ -11,27 +11,26 @@ class ProductsController extends Controller{
 	
 	public function showAllAction(){
 		
+		$result = $this->model->getProducts();
 		
-		$params = [
+//		$params = [
+//			
+//			'id' => '2',
+//			
+//		];
+//		
+//		//$db = new Db;
+//		$dbh = Db::GetInstance();
+//		$result = Db::qquery('SELECT * FROM products WHERE id = :id', $params);
+//
+		$vars = [
 			
-			'id' => 1,
+			'products' => $result,
 			
 		];
 		
-		//$db = new Db;
-		$dbh = Db::GetInstance();
-		$result = Db::qquery('SELECT * FROM products WHERE id = :id', $params);
-		
-		debug($result);
-		
-		//var_dump($res);
-		$vars = [];
-//		$vars = [
-//			'ProdName' => 'prod1',
-//			'ProdPrice' => '110',
-//		];
-		
 		$this->view->render('Show all products', $vars);
+		//$this->view->render('Show all products');
 	}
 	
 	

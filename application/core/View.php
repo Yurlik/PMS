@@ -14,12 +14,13 @@ class View{
 		//echo $this->path;
 	}
 	
-	public function render($title, $vars = []){		
+	public function render($title, $vars = []){
+		//debug($vars);
 		extract($vars);		
 		if(file_exists('application/views/'.$this->path.'.php')){
 			ob_start();
 			require 'application/views/'.$this->path.'.php';
-			$content = ob_get_clean();		
+			$content = ob_get_clean();			
 			require 'application/views/layouts/'.$this->layout.'.php';
 			
 		}else{
